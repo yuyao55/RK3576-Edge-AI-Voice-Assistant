@@ -36,19 +36,29 @@
 
 ## System Architecture
 
-这里放架构图
-
-Audio
-↓
-Wake Word
-↓
-ASR
-↓
-LLM
-↓
-TTS
-↓
-Speaker
+```
+Audio Capture
+   ↓
+[VAD + WakeWord]
+   ↓
+ASR Queue
+   ↓
+ASR (Whisper - NPU Core 0)
+   ↓
+LLM Queue
+   ↓
+LLM (Loacl - NPU Core 1 / API)(streaming)
+   ↓
+TTS Queue
+   ↓
+Sentence Splitter
+   ↓
+TTS (Piper - NPU Core 0)
+   ↓
+Audio Buffer Queue
+   ↓
+ALSA Player
+```
 
 
 ---
